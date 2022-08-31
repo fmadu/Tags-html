@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=d, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+        }
+        .drop{
+            width: 200px;
+            height: 200px;
+            border: crimson 2px solid;
+        }
+    </style>
+</head>
+<body>
+    <div id="box-1" class="box" draggable="true"></div>
+    <br>
+    <div id="box-2" class="box" draggable="true"></div>
+    <br>
+    <div class="drop" dropzone="copy"></div>
+    <script>
+        const box = document.querySelectorAll('.box');
+        const dropZone = document.querySelectorAll('[dropzone]')
+        box.forEach(boxEl => {
+            boxEl.addEventListener('dragstart=', e => {
+                e.dataTransfer.setData('Text', e.target.id);
+                console.log(e.target.id);
+            });
+        });
+
+        dropZone.addEventListener('dragover', e => {
+           e.preventDefault();
+        });
+
+        dropZone.addEventListener('drop', e => {
+            const id = (e.dataTransfer.getData('Text'));
+            const element = document.getElementById(id);
+            e.target.appenndChild(element);
+        });
+    </script>
+
+</body>
+</html>
